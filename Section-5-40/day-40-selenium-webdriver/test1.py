@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 
 chrome_driver_path = MY_CHROME_DRIVER_PATH
 
@@ -9,3 +10,13 @@ driver.get("https://www.amazon.com/PlayStation-DualSense-Wireless-Controller-Mid
 price = driver.find_element("id", "priceblock_ourprice")
 print(price.text)
 
+search_bar = driver.find_element("q")
+print(search_bar.get_attribute("placeholder"))
+
+logo = driver.find_element(By.CLASS_NAME, "nav-logo-link nav-progressive-attribute")
+
+documentation_link = driver.find_element(By.CSS_SELECTOR, ".documentation-widget a")
+print(documentation_link.text)
+
+bug_link = driver.find_element(By.XPATH, '//*[@id="contextualIngressPtLabel_deliveryShortLine"]/span[1]')
+print(bug_link.text)
