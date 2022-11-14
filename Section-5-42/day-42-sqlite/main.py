@@ -14,14 +14,21 @@ c = conn.cursor()
 #     )""")
 
 # insert
-# c.execute("INSERT INTO customers VALUES ('John', 'Elder', 'john@gmail.com')")
+c.execute("INSERT INTO customers VALUES ('John', 'Elder', 'john@gmail.com')")
 
 # insert multiple data
-many_customer = [('Wes', 'Brown', 'wes@gmail.com'),
-                 ('Jules', 'Snow', 'jules@gmail.com'),
-                 ('Mary', 'White', 'mary@gmail.com')]
+# many_customer = [('Wes', 'Brown', 'wes@gmail.com'),
+#                  ('Jules', 'Snow', 'jules@gmail.com'),
+#                  ('Mary', 'White', 'mary@gmail.com')]
+#
+# c.execute("INSERT INTO customers VALUES (?,?,?)", many_customer)
 
-c.execute("INSERT INTO customers VALUES (?,?,?)", many_customer)
+# query the database
+c.execute("SELECT * FROM customers")
+# c.fetchone()
+# c.fetchmany(3)
+
+print(c.fetchall())
 
 # commit
 conn.commit()
