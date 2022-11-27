@@ -6,13 +6,16 @@ from random import randrange
 
 app = FastAPI()
 
+
 class Post(BaseModel):
     title: str
     content: str
     published: bool = True
     rating: Optional[int] = None
 
-my_posts = [{"title": "title of post 1", "content": "content of post 1", "id": 1}, {"title": "favorite foods", "content": "I like pizza", "id": 2}]
+
+my_posts = [{"title": "title of post 1", "content": "content of post 1", "id": 1},
+            {"title": "favorite foods", "content": "I like pizza", "id": 2}]
 
 
 def find_post(id):
@@ -21,16 +24,23 @@ def find_post(id):
             return p
 
 
+def find_index_post(id):
+    for i, d in enumerate(my_posts):
+        if d['id'] == id:
+            return i
+
 
 @app.get("/")
 def root():
     return {"message": "Hello World"}
 
+
 @app.get("/posts")
 def get_posts():
     return {"data": my_posts}
 
-@app.post("/posts")
+
+@app.post("/posts", status_code=status.HTTP_201_CREATED)
 def create_posts(post: Post):
     print(post)
     print(post.dict())
@@ -52,11 +62,31 @@ def get_post(id: int, response: Response):
     return {"post_detail": post}
 
 
+@app.delete("/posts/{id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_post(id: int):
+    # deleting post
+    index = find_index_post(id)
+    if index == None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"post with id: {id} does not exist")
+    my_posts.pop(index)
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
+@app.put("/posts/{id}")
+def upadate_post(id: int, post: Post):
+    print(post)
+
+    index = find_index_post(id)
+    if index == None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"post with id: {id} does not exist")
+
+    post_dict = post.dict()
+    post_dict['id'] = id
+    my_posts[index] = post_dict
+
+    return {"message": "updated post"}
 
 # title str, content str, category
 # venv\Scripts\activate.bat
-# uvicorn main:app --reload
+# uvicorn app.main:app --reload
 # ctrl+k+c / ctrl+k+u
-
-
-
