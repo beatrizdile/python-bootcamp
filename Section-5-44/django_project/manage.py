@@ -20,3 +20,6 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# cd django_project
+# python manage.py runserver
