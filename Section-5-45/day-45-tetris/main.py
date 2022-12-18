@@ -207,10 +207,38 @@ def draw_window(surface, grid):
     surface.blit(label, (top_left_x + play_width / 2 - label.get_width() / 2, 30))
 
     draw_grid(surface, grid)
+
     pygame.display.update()
 
 def main():
-    pass
+
+    locked_positions = {}
+    grid = create_grid(locked_positions)
+
+    change_piece = False
+    run = True
+    current_piece = get_shape()
+    next_piece = get_shape()
+    clock = pygame.time.Clock()
+    fall_time = 0
+
+    while run:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+
+                if event.key == pygame.K_RIGHT:
+
+                if event.key == pygame.K_DOWN:
+
+                if event.key == pygame.K_UP:
+
+
+
+
 
 
 def main_menu():
