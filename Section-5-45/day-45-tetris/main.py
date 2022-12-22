@@ -161,7 +161,8 @@ def create_grid(locked_positions={}):
 
 
 def convert_shape_format(shape):
-    pass
+    positions = []
+    format = shape.shape[shape.rotation % len(shape.shape)]
 
 
 def valid_space(shape, grid):
