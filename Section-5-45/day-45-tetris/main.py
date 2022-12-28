@@ -175,10 +175,16 @@ def convert_shape_format(shape):
 
 
 def valid_space(shape, grid):
-    accepted_pos = [[(j, i) for j in range(10)] for i in range(20)]
+    accepted_pos = [[(j, i) for j in range(10) if grid[i][j] == (0, 0, 0)] for i in range(20)]
     accepted_pos = [j for sub in accepted_pos for j in sub]
 
     formatted = convert_shape_format(shape)
+
+    for pos in formatted:
+        if pos not in accepted_pos:
+            if pos[1] > -1:
+                return False
+    return True
 
 
 def check_lost(positions):
