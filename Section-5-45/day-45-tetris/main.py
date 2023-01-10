@@ -236,7 +236,7 @@ def clear_rows(grid, locked):
                 newKey = (x, y + inc)
                 locked[newKey] = locked.pop(key)
 
-
+    return inc
 
 
 
@@ -288,6 +288,7 @@ def main(win):
     fall_time = 0
     fall_speed = 0.27
     level_time = 0
+    score = 0
 
     while run:
         grid = create_grid(locked_positions)
