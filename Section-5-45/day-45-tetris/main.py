@@ -203,7 +203,10 @@ def get_shape():
 
 
 def draw_text_middle(text, size, color, surface):
-    pass
+    font = pygame.font.SysFont("Helvetica", size, bold=True)
+    label = font.render(text, 1, color)
+
+    surface.blit(top_left_x + play_width /2 - (label.get_width()/2, top_left_y + play_height/2 - label.get_height()/2))
 
 
 def draw_grid(surface, grid):
