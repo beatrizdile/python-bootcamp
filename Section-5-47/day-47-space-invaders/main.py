@@ -47,6 +47,8 @@ def main():
     lives = 5
     main_font = pygame.font.SysFont("helvetica", 50)
 
+    ship = Ship(300, 650)
+
     clock = pygame.time.Clock()
 
     def redraw_window():
@@ -57,6 +59,8 @@ def main():
 
         WIN.blit(lives_label, (10, 10))
         WIN.blit(level_label, (WIDTH - level_label.get_width() - 10, 10))
+
+        ship.draw(WIN)
 
         pygame.display.update()
 
