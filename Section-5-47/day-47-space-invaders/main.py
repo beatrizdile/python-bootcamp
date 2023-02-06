@@ -36,7 +36,15 @@ class Ship:
         self.cool_down_counter = 0
 
     def draw(self, window):
-        pygame.draw.rect(window, (255,0,0), (self.x, self.y, 50, 50))
+        window.blit(self.ship_img, (self.x, self.y))
+
+
+class Player(Ship):
+    def __int__(self, x, y, health=100):
+        super().__int__(x, y, health)
+        self.ship_img = YELLOW_SPACE_SHIP
+        self.laser_img = YELLOW_LASER
+        self.mask = pygame.mask.from_surface(self.ship_img)
 
 
 
