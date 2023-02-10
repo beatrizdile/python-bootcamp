@@ -54,6 +54,18 @@ class Player(Ship):
         self.max_health = health
 
 
+class Enemy(Ship):
+    COLOR_MAP = {
+        "red": (RED_SPACE_SHIP, RED_LASER),
+        "green": (GREEN_SPACE_SHIP, GREEN_LASER),
+        "blue": (BLUE_SPACE_SHIP, BLUE_LASER)
+    }
+
+    def __init__(self, x, y, color, health=100):
+        super().__init__(x, y, health)
+        self.ship_img, self.laser_img = self.COLOR_MAP[color]
+
+
 def main():
     run = True
     FPS = 60
@@ -91,11 +103,11 @@ def main():
         keys = pygame.key.get_pressed()
         if keys[pygame.K_a] and player.x - player_vel > 0:  # left
             player.x -= player_vel
-        if keys[pygame.K_d] and player.x + player_vel + 50 < WIDTH:  # right
+        if keys[pygame.K_d] and player.x + player_vel + player.get_width() < WIDTH:  # right
             player.x += player_vel
         if keys[pygame.K_w] and player.y - player_vel > 0:  # up
             player.y -= player_vel
-        if keys[pygame.K_s] and player.y + player_vel + 50 < HEIGHT:  # down
+        if keys[pygame.K_s] and player.y + player_vel + player.get_height() < HEIGHT:  # down
             player.y += player_vel
 
 main()
