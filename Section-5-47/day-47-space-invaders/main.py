@@ -64,6 +64,10 @@ class Enemy(Ship):
     def __init__(self, x, y, color, health=100):
         super().__init__(x, y, health)
         self.ship_img, self.laser_img = self.COLOR_MAP[color]
+        self.mask = pygame.mask.from_surface(self.ship_img)
+
+    def move(self, vel):
+        self.y += vel
 
 
 def main():
@@ -72,6 +76,10 @@ def main():
     level = 1
     lives = 5
     main_font = pygame.font.SysFont("helvetica", 50)
+
+    enemies = []
+    wave_length = 5
+    enemy_vel = 1
 
     player_vel = 5
 
@@ -88,13 +96,21 @@ def main():
         WIN.blit(lives_label, (10, 10))
         WIN.blit(level_label, (WIDTH - level_label.get_width() - 10, 10))
 
+        for enemy in enemies:
+            enemy.draw(WIN)
+
         player.draw(WIN)
 
         pygame.display.update()
 
     while run:
         clock.tick(FPS)
-        redraw_window()
+
+        if len(enemies) == 0:
+            level += 1
+            wave_length += 5
+            for i in range(wave_length):
+
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -109,5 +125,7 @@ def main():
             player.y -= player_vel
         if keys[pygame.K_s] and player.y + player_vel + player.get_height() < HEIGHT:  # down
             player.y += player_vel
+
+        redraw_window()
 
 main()
