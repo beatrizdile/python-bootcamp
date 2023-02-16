@@ -127,6 +127,12 @@ def main():
         if keys[pygame.K_s] and player.y + player_vel + player.get_height() < HEIGHT:  # down
             player.y += player_vel
 
+        for enemy in enemies[:]:
+            enemy.move(enemy_vel)
+            if enemy.y + enemy.get_height() > HEIGHT:
+                lives -= 1
+                enemies.remove(enemy)
+
         redraw_window()
 
 main()
